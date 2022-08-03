@@ -11,23 +11,26 @@ const getRandomHexColor = function () {
     .padStart(6, 0)}`;
 }
 
-refs.createBtnEl.addEventListener('click', function createBoxes(amount) {
-  amount = refs.inputEl.value;
+refs.createBtnEl.addEventListener('click', () =>
+  createBoxes(refs.inputEl.value));
 
-  const arrNumbers = [];
+
+ function createBoxes(amount) {
+ const boxStart = 30;
+
   for (let i = 0; i < amount; i += 1) {
-    const divBox = `<div>DivBox${i + 1}</div>`;
-    arrNumbers.push(divBox);
+    const boxEl = document.createElement("div");
+    boxEl.style.width = boxStart + i * 10 + "px";
+    boxEl.style.height = boxStart + i * 10 + "px";
+    boxEl.style.backgroundColor = getRandomHexColor();
+    refs.boxesEl.appendChild(boxEl);
   };
 
-  const boxesMarkup = arrNumbers
-    .map((arrNumber) => arrNumber)
-    .join("");
-
-  refs.boxesEl.innerHTML = boxesMarkup;
-});
+}
 
 refs.destroyBtnEl.addEventListener('click', function destroyBoxes() {
   refs.boxesEl.innerHTML = "";
   refs.inputEl.value = "";
 });
+
+
